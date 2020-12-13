@@ -18,8 +18,8 @@ services:
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_USER=meutroco
-      - POSTGRES_PASSWORD=meutroco
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=meutroco
     volumes:
       - /database/meutroco:/var/lib/postgresql/data

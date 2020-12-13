@@ -8,9 +8,20 @@ import sessionsStoreRouter from '@modules/stores/infra/http/routes/session.route
 import profileStoreRouter from '@modules/stores/infra/http/routes/profile.routes';
 import transferRouter from '@modules/transfer/infra/http/routes/transfer.routes';
 
-
+import pkg from '../../../../../package.json'
 
 const routes = Router();
+
+routes.get('/status', (request, response)=> {
+  response.status(200).json({
+    version: pkg.version,
+    node: process.version,
+    resource: process.cpuUsage().system,
+    uptime_min: Math.floor(process.uptime() / 60),
+    server_time: new Date().toISOString().replace('T', ' ').substr(0, 19),
+    server_time_moment: new Date().toISOString()
+  })
+});
 
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
