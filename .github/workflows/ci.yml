@@ -29,7 +29,7 @@ jobs:
           USERNAME: ${{ secrets.USER }}
           PORT: 22
           PASSWORD: ${{ secrets.PASSWORD }}
-          : |
+          script: |
             cd ~
             docker pull gustavocolombo/meutroco:latest
             docker stop MEUTROCO_API
