@@ -11,9 +11,9 @@ module.exports = {
         "@shared": "./src/shared"
       }
     }],
-    "babel-plugin-transform-typescript-metadata",
-    "babel/preset-flow",
-    ["@babel/plugin-proposal-decorators", { "legacy" : true}],
-    ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+    // "babel-plugin-transform-typescript-metadata",
+    // "babel/preset-flow",
+    // ["@babel/plugin-proposal-decorators", { "legacy" : true}],
+    // ["@babel/plugin-proposal-class-properties", { "loose" : true }]
   ]
 }
