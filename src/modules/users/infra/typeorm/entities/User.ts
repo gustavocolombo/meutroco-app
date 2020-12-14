@@ -22,14 +22,11 @@ class User {
   @Column()
   password: string;
 
-  @OneToOne( () => Account)
-  account:Account;
+  @OneToOne(() => Account)
+  account: Account;
 
   @Column()
   phone: string;
-
-  @Column()
-  birthday: Date;
 
   @CreateDateColumn()
   created_at: Date;
