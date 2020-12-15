@@ -28,7 +28,7 @@ jobs:
           host: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USER }}
           PORT: 22
-          KEY: ${{ secrets.SSHKEY }}
+          PASSWORD: ${{ secrets.PASSWORD }}
           script: |
             cd ~
             docker pull gustavocolombo/meutroco:latest
