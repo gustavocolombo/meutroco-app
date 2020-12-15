@@ -28,9 +28,6 @@ class User {
   @Column()
   phone: string;
 
-  @Column()
-  birthday: Date;
-
   @CreateDateColumn()
   created_at: Date;
 

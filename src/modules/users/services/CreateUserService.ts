@@ -11,7 +11,6 @@ interface IRequest {
   password: string;
   name: string;
   phone: string;
-  birthday: Date;
 }
 
 @injectable()
@@ -29,7 +28,6 @@ class CreateUserService {
     password,
     name,
     phone,
-    birthday,
   }: IRequest): Promise<User> {
     const checkUserExist = await this.usersRepository.findByDocument(document);
     if (checkUserExist) {
@@ -43,7 +41,6 @@ class CreateUserService {
       password: hashedPassword,
       name,
       phone,
-      birthday,
     });
 
     return user;
