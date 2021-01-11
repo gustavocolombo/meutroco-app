@@ -1,9 +1,10 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
+// eslint-disable-next-line import/prefer-default-export
 export class CreateTransfer1607648585223 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.createTable(new Table({
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.createTable(
+      new Table({
         name: 'transfer',
         columns: [
           {
@@ -11,19 +12,19 @@ export class CreateTransfer1607648585223 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()'
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'account_sender',
-            type: 'uuid'
+            type: 'uuid',
           },
           {
             name: 'account_recipient',
-            type: 'uuid'
+            type: 'uuid',
           },
           {
             name: 'value',
-            type: 'float'
+            type: 'float',
           },
           {
             name: 'created_at',
@@ -36,14 +37,14 @@ export class CreateTransfer1607648585223 implements MigrationInterface {
             default: 'now()',
           },
         ],
-        foreignKeys:[
+        foreignKeys: [
           {
             name: 'relationshipTransferRecipient',
             columnNames: ['account_recipient'],
             referencedColumnNames: ['id'],
             referencedTableName: 'account',
             onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
+            onUpdate: 'CASCADE',
           },
           {
             name: 'relationshipTransferSender',
@@ -51,14 +52,14 @@ export class CreateTransfer1607648585223 implements MigrationInterface {
             referencedColumnNames: ['id'],
             referencedTableName: 'account',
             onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
-          }
-        ]
-      }))
-    }
+            onUpdate: 'CASCADE',
+          },
+        ],
+      }),
+    );
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('transfer');
-    }
-
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable('transfer');
+  }
 }

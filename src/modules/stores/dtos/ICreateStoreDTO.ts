@@ -1,9 +1,9 @@
-export default interface ICreateStoreDTO{
+export default interface ICreateStoreDTO {
   document: string;
   password: string;
   phone: string;
   latitude: number;
   longitude: number;
   registration: string;
-  isBranch:boolean;
+  account: Account;
 }

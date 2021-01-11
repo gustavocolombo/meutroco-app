@@ -19,11 +19,6 @@ export class CreateStores1607568546705 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'isBranch',
-            type: 'boolean',
-            default: false
-          },
-          {
             name: 'password',
             type: 'varchar',
           },

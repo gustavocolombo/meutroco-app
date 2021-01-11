@@ -17,7 +17,7 @@ interface IResponse {
 }
 
 @injectable()
-class CreateTransferService {
+class CreateTransferUserToStoreService {
   constructor(
     @inject('TransferRepository')
     private transferRepository: ITransferRepository,
@@ -36,13 +36,15 @@ class CreateTransferService {
     numberAccount,
     value,
   }: IRequest): Promise<IResponse> {
-    const send_store = await this.storesRepository.findById(user_id);
+    const send_user = await this.usersRepository.findById(user_id);
 
-    if (!send_store) {
+    if (!send_user) {
       throw new AppError('user sender not found');
     }
 
-    const { account: accountSender } = send_store;
+    console.log(send_user);
+
+    const { account: accountSender } = send_user;
 
     if (value > accountSender.balance) {
       throw new AppError('insuficient found');
@@ -51,7 +53,7 @@ class CreateTransferService {
     let recipient_user;
 
     if (document.length === 14) {
-      recipient_user = await this.usersRepository.findByDocument(document);
+      recipient_user = await this.storesRepository.findByDocument(document);
     }
 
     if (!recipient_user) {
@@ -93,4 +95,4 @@ class CreateTransferService {
   }
 }
 
-export default CreateTransferService;
+export default CreateTransferUserToStoreService;

@@ -15,30 +15,26 @@ export class CreateAccount1607568586338 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'type',
-            type: 'varchar',
+            name: 'agency',
+            type: 'integer',
+            default: 1,
           },
           {
-            name: 'user_id',
-            type: 'uuid',
-            isNullable:true
-          },
-          {
-            name: 'store_id',
-            type: 'uuid',
-            isNullable:true
-          },
-          {
-            name: 'active',
-            type: 'boolean',
-            default:true
+            name: 'numberAccount',
+            type: 'integer',
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'balance',
             type: 'float',
             default: 0,
           },
-
+          {
+            name: 'active',
+            type: 'boolean',
+            default: true,
+          },
           {
             name: 'created_at',
             type: 'timestamp',

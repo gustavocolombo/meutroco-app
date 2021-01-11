@@ -1,10 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 
-
 import ITransferCreateDTO from '@modules/transfer/dto/ITransferCreateDTO';
 
+import ITransferRepository from '@modules/transfer/repositories/ITransferRepository';
 import Transfer from '../entities/Transfer';
-import ITransferRepository from '@modules/transfer/repositories/ITransferRepository'
 
 class TransferRepository implements ITransferRepository {
   private ormRepository: Repository<Transfer>;

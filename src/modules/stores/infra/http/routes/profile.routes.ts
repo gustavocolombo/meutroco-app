@@ -1,7 +1,6 @@
 import { Router } from 'express';
+import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 import ProfileController from '../controllers/ProfileController';
-
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 // http://localhost:3333/profile
 const profileStoreRouter = Router();

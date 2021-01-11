@@ -1,34 +1,27 @@
-import { PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, Entity, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
-import Stores from '@modules/stores/infra/typeorm/entities/Stores';
-import User from '@modules/users/infra/typeorm/entities/User';
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Generated,
+} from 'typeorm';
 
-
-export enum TypeAccount {
-  ENTEPRISE = 'enterprise',
-  PERSONAL = 'personal'
-}
 @Entity('account')
 class Account {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({
-    type: 'enum',
-    enum: TypeAccount,
-    default: TypeAccount.PERSONAL
-  })
-  type: TypeAccount;
+  @Column()
+  @Generated()
+  agency: number;
 
-  @OneToOne(() => Stores, { eager: true })
-  @JoinColumn({ name: 'store_id' })
-  store: Stores;
+  @Column()
+  @Generated('increment')
+  numberAccount: number;
 
   @Column()
   balance: number;
-
-  @OneToOne(() => User, { eager: true })
-  @JoinColumn({ name: 'user_id' })
-  user: User;
 
   @Column()
   active: boolean;
@@ -39,6 +32,5 @@ class Account {
   @UpdateDateColumn()
   updated_at: Date;
 }
-
 
 export default Account;

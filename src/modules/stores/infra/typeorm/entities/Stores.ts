@@ -4,7 +4,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import Account from '@modules/accounts/infra/typeorm/entities/Account';
@@ -23,8 +24,8 @@ class Stores {
   @Column()
   phone: string;
 
-  @Column()
-  isBranch: boolean;
+  // @Column()
+  // isBranch: boolean;
 
   @Column()
   latitude: number;
@@ -35,9 +36,9 @@ class Stores {
   @Column()
   registration: string;
 
-  @OneToOne( () => Account)
-  account:Account;
-
+  @OneToOne(() => Account, { eager: true })
+  @JoinColumn({ name: 'account_id' })
+  account: Account;
 
   @CreateDateColumn()
   created_at: Date;

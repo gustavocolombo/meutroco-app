@@ -13,7 +13,7 @@ interface IRequest {
   latitude: number;
   longitude: number;
   registration: string;
-  isBranch:boolean;
+  account: Account;
 }
 
 @injectable()
@@ -27,15 +27,17 @@ class CreateStoreService {
   ) {}
 
   public async execute({
-      document,
-      password,
-      phone,
-      latitude,
-      longitude,
-      registration,
-      isBranch
+    document,
+    password,
+    phone,
+    latitude,
+    longitude,
+    registration,
+    account,
   }: IRequest): Promise<Stores> {
-    const checkStoreExist = await this.storesRepository.findByDocument(document);
+    const checkStoreExist = await this.storesRepository.findByDocument(
+      document,
+    );
     if (checkStoreExist) {
       throw new AppError('Cnpj já cadastrado');
     }
@@ -49,7 +51,7 @@ class CreateStoreService {
       latitude,
       longitude,
       registration,
-      isBranch
+      account,
     });
 
     return store;

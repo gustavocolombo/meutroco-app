@@ -33,5 +33,3 @@ container.registerSingleton<ITransferRepository>(
   'TransferRepository',
   TransferRepository,
 );
-
-

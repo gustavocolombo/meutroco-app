@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import Account from '@modules/accounts/infra/typeorm/entities/Account';
 
@@ -22,7 +23,8 @@ class User {
   @Column()
   password: string;
 
-  @OneToOne(() => Account)
+  @OneToOne(() => Account, { eager: true })
+  @JoinColumn({ name: 'account_id' })
   account: Account;
 
   @Column()
