@@ -32,8 +32,9 @@ routes.use('/profile', profileRouter);
 
 routes.use('/transfer', transferRouter);
 routes.use('/transfer-to-store', transferToStoreRouter);
-routes.use('/balance', balanceRouter);
+
 routes.use('/balance-store', balanceStoreRouter);
+routes.use('/balance', balanceRouter);
 
 routes.use('/stores', storesRouter);
 routes.use('/sessions-store', sessionsStoreRouter);
