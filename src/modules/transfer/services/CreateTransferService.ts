@@ -44,8 +44,12 @@ class CreateTransferService {
 
     const { account: accountSender } = send_store;
 
-    if (value > accountSender.balance) {
-      throw new AppError('insuficient found');
+    // if (value > accountSender.balance) {
+    //   throw new AppError('insuficient found');
+    // }
+
+    if (value < 0) {
+      throw new AppError('negative value is not allowed');
     }
 
     let recipient_user;
@@ -72,6 +76,9 @@ class CreateTransferService {
     }
 
     accountSender.balance -= value;
+    // if (accountSender.balance < 0) {
+    //   throw new AppError('operation not available');
+    // }
     accountRecipient.balance += value;
 
     this.accountRepository.save(accountSender);

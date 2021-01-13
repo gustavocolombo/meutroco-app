@@ -45,9 +45,12 @@ class CreateTransferUserToStoreService {
     console.log(send_user);
 
     const { account: accountSender } = send_user;
+    // if (value > accountSender.balance) {
+    //   throw new AppError('insuficient found');
+    // }
 
-    if (value > accountSender.balance) {
-      throw new AppError('insuficient found');
+    if (value < 0) {
+      throw new AppError('negative value is not allowed');
     }
 
     let recipient_user;
