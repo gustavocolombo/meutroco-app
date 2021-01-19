@@ -26,6 +26,9 @@ class Account {
   @Column()
   active: boolean;
 
+  @Column()
+  limit_credits_account_store: number;
+
   @CreateDateColumn()
   created_at: Date;
 

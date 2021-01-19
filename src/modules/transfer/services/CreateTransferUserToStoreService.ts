@@ -45,9 +45,6 @@ class CreateTransferUserToStoreService {
     console.log(send_user);
 
     const { account: accountSender } = send_user;
-    // if (value > accountSender.balance) {
-    //   throw new AppError('insuficient found');
-    // }
 
     if (value < 0) {
       throw new AppError('negative value is not allowed');
@@ -65,6 +62,12 @@ class CreateTransferUserToStoreService {
 
     const { account: accountRecipient } = recipient_user;
 
+    if (accountSender.balance === 0) {
+      throw new AppError(
+        'this transaction is not allowed, you do not have found',
+      );
+    }
+
     if (
       accountRecipient.agency !== agency ||
       accountRecipient.numberAccount !== numberAccount
@@ -77,6 +80,19 @@ class CreateTransferUserToStoreService {
     }
 
     accountSender.balance -= value;
+
+    if (accountSender.balance === 0) {
+      throw new AppError(
+        'this transaction is not allowed, you do not have found',
+      );
+    }
+
+    if (accountSender.balance - value < -1) {
+      throw new AppError(
+        'this transaction is not allowed, you do not have found',
+      );
+    }
+
     accountRecipient.balance += value;
 
     this.accountRepository.save(accountSender);

@@ -44,10 +44,6 @@ class CreateTransferService {
 
     const { account: accountSender } = send_store;
 
-    // if (value > accountSender.balance) {
-    //   throw new AppError('insuficient found');
-    // }
-
     if (value < 0) {
       throw new AppError('negative value is not allowed');
     }
@@ -75,10 +71,22 @@ class CreateTransferService {
       throw new AppError('you can not send to own account');
     }
 
-    accountSender.balance -= value;
-    // if (accountSender.balance < 0) {
-    //   throw new AppError('operation not available');
+    // if (accountSender.balance === 0) {
+    //   throw new AppError(
+    //     'this transaction is not allowed, you do not have found',
+    //   );
     // }
+
+    accountSender.balance = accountSender.limit_credits_account_store;
+    accountSender.balance -= value;
+    accountSender.limit_credits_account_store -= value;
+
+    if (accountSender.balance - value < -1) {
+      throw new AppError(
+        'this transaction is not allowed, you do not have found',
+      );
+    }
+
     accountRecipient.balance += value;
 
     this.accountRepository.save(accountSender);
