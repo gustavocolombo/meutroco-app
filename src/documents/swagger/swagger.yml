@@ -1,0 +1,374 @@
+swagger: "2.0"
+info:
+  description: "This is the documentation for the backend API of the startup Meu Troco, created with the SOLID architecture and with Node.Js + Typescript"
+  version: "1.0.0"
+  title: "Swagger Meu Troco"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "gusttavocolombo@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:3333"
+basePath: "/"
+tags:
+- name: "User"
+  description: "Everything about endpoints of users"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "Store"
+  description: "Everything about endpoints of transfer"
+- name: "balance"
+  description: "Everything about endpoints of balance belonging to user accounts"
+- name: "transfer"
+  description: "Everything about endpoints of transfer"
+
+schemes:
+- "https"
+- "http"
+paths:
+  /user:
+    post:
+      tags:
+      - "User"
+      summary: "Add a new user to the Database"
+      description: "After the user passes all the required data in a well formatted way, a json will be returned with the newly created user"
+      operationId: "addUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "Returns the newly created"
+        "400":
+          description: "User validation failed: name: Path `field` is required"
+          
+  /sessions:
+    post:
+      tags:
+      - "User"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "document"
+        in: "query"
+        description: "The user cpf (document) for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        "400":
+          description: "Invalid username/password supplied"
+  /profile:
+    get:
+      tags:
+      - "User"
+      summary: "All user data in which the jwt token was passed in bearer token will be returned"
+      description: "All the profile data of the registered user in which the jwt token was passed will be returned, if valid"
+      operationId: "getUserProfile"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+       
+  /profile/{bearerToken}:
+    put:
+      tags:
+      - "User"
+      summary: "Updated user"
+      description: "This request is for changing user data (email)"
+      operationId: "updateUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "bearerToken"
+        in: "path"
+        description: "After passing the jwt token in the bearer token, and the required data well formatted, a user will be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "The user will be returned with their new data"
+        "400":
+          description: "Invalid user supplied"
+        "404":
+          description: "User not found"
+  /store:
+    post:
+      tags:
+      - "Store"
+      summary: "Add a new user to the Database"
+      description: "After the user passes all the required data in a well formatted way, a json will be returned with the newly created user"
+      operationId: "addStore"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "Returns the newly created"
+        "400":
+          description: "User validation failed: name: Path `field` is required"
+          
+  /sessions-store:
+    post:
+      tags:
+      - "Store"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginStore"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "document"
+        in: "query"
+        description: "The user cpf (document) for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        "400":
+          description: "Invalid username/password supplied"
+  /profile-store:
+    get:
+      tags:
+      - "Store"
+      summary: "All user data in which the jwt token was passed will be returned"
+      description: "All the profile data of the registered user in which the jwt token was passed will be returned, if valid"
+      operationId: "getStoreProfile"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+       
+  /profile-store/{bearerToken}:
+    put:
+      tags:
+      - "Store"
+      summary: "Updated store"
+      description: "This request is for changing store data"
+      operationId: "updateStore"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "bearerToken"
+        in: "path"
+        description: "After passing the jwt token in the bearer token, and the required data well formatted, a store will be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "The user will be returned with their new data"
+        "400":
+          description: "Invalid user supplied"
+        "404":
+          description: "User not found"
+          
+  /balance:
+    get:
+      tags:
+      - "balance"
+      summary: "The user's account balance will be returned"
+      description: "It is necessary to pass the request the token jwt the GET route to be returned the balance corresponding to the user's account User (http:://localhost/balance)"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          
+  /balance-store:
+    get:
+      tags:
+      - "balance"
+      summary: "The user's account balance will be returned"
+      description: "It is necessary to pass the request the token jwt the GET route to be returned the balance corresponding to the user's account Store (http:://localhost/balance-store)"
+      operationId: "getBalanceOfAccountStore"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "your balance is {value}"
+        "400":
+          description: "Token JWT invalid"
+
+  /transfer:
+    post:
+      tags:
+      - "transfer"
+      summary: "A transfer from the type user store to the type common user will be created"
+      description: "After passing the account data to whoever the money is transferred and there is a check of values, the transfer will be created"
+      operationId: "createTransfer"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/Transfer"
+      responses:
+        "200":
+          description: "All data of the newly made transaction is returned"
+        "400":
+          description: "Insuficient founds"
+          
+  
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  User:
+    type: "object"
+    required:
+    - "name"
+    - "document"
+    - "phone"
+    - "password"
+    properties:
+      id:
+        type: "number"
+      name:
+        type: "string"
+      document:
+        type: "string"
+      phone:
+        type: "string"
+      password:
+        type: "string"
+    xml:
+      name: "User"
+  Stores:
+    type: "object"
+    required:
+    - "document"
+    - "password"
+    - "registration"
+    - "phone"
+    - "latitude"
+    - "longitude"
+    properties:
+      id:
+        type: "number"
+      document:
+        type: "string"
+      password:
+        type: "string"
+      registration:
+        type: "string"
+      phone:
+        type: "string"
+      latitude:
+        type: "number"
+      longitude:
+        type: "number"
+    xml:
+      name: "User"
+  Account:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      agency:
+        type: "number"
+      numberAccount:
+        type: "number"
+      active:
+        type: "boolean"
+      balance:
+        type: "number"
+      limit_credits_account_store:
+        type: "number"
+    xml:
+      name: "Account"
+  Transfer:
+    type: "object"
+    properties:
+      accountSender:
+        type: "string"
+      accountRecipient:
+        type: "string"
+      value:
+        type: "number"
+    xml:
+      name: "Tag"
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
